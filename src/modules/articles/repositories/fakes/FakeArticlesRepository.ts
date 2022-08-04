@@ -3,7 +3,7 @@ import IArticlesRepository from '@modules/articles/repositories/IArticlesReposit
 import ICreateArticleDTO from '@modules/articles/dtos/ICreateArticleDTO';
 
 import Article from '@modules/articles/infra/typeorm/entities/Articles';
-import { uuid } from 'uuidv4';
+import { v4 } from 'uuid';
 
 class FakeArticlesRepository implements IArticlesRepository {
   private articles: Article[] = [];
@@ -19,7 +19,7 @@ class FakeArticlesRepository implements IArticlesRepository {
   }: ICreateArticleDTO): Promise<Article> {
     const article = new Article();
 
-    article.id = uuid();
+    article.id = v4();
     article.featured = featured;
     article.imageUrl = imageUrl;
     article.publishedAt = publishedAt;

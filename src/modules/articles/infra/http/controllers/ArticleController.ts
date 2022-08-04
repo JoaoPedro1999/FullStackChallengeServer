@@ -6,6 +6,7 @@ import ShowAllArticlesService from '@modules/articles/services/ShowAllArticlesSe
 import ShowArticlesByKeywordService from '@modules/articles/services/ShowArticlesByKeywordService';
 import ShowArticleByIdService from '@modules/articles/services/ShowArticleByIdService';
 import DeleteArticleService from '@modules/articles/services/DeleteArticleService';
+import UpdateArticleService from '@modules/articles/services/UpdateArticleService';
 
 interface RequestParams {
   keyword?: string;
@@ -78,20 +79,35 @@ export default class TransactionController {
     return response.status(201).json(article);
   }
 
-  // public async update(
-  //   request: Request,
-  //   response: Response,
-  // ): Promise<Response> {}
+  public async update(request: Request, response: Response): Promise<Response> {
+    const { articleId } = request.params;
+    const { title, featured, imageUrl, newsSite, publishedAt, summary, url } =
+      request.body;
+
+    const updateArticleService = container.resolve(UpdateArticleService);
+
+    const article = await updateArticleService.execute({
+      articleId,
+      featured,
+      imageUrl,
+      newsSite,
+      summary,
+      title,
+      url,
+    });
+
+    return response.status(201).json(article);
+  }
 
   public async delete(request: Request, response: Response): Promise<Response> {
     const { articleId } = request.params;
 
     const deleteArticleService = container.resolve(DeleteArticleService);
 
-    const article = await deleteArticleService.execute({
+    deleteArticleService.execute({
       articleId,
     });
 
-    return response.status(204).json(article);
+    return response.status(204).json();
   }
 }

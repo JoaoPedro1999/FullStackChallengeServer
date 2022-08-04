@@ -1,4 +1,4 @@
-import { uuid } from 'uuidv4';
+import { v4 } from 'uuid';
 import IEventsRepository from '@modules/events/repositories/IEventsRepository';
 import ICreateEventDTO from '@modules/events/dtos/ICreateEventDTO';
 
@@ -13,7 +13,7 @@ class FakeEventsRepository implements IEventsRepository {
   }: ICreateEventDTO): Promise<Events> {
     const event = new Events();
 
-    event.id = uuid();
+    event.id = v4();
     event.articleId = articleId;
     event.provider = provider;
 

@@ -11,7 +11,7 @@ let fakeLaunchesRepository: FakeLaunchesRepository;
 let fakeArticlesRepository: FakeArticlesRepository;
 let deleteArticleService: DeleteArticleService;
 
-describe('Delete Article', () => {
+describe('DeleteArticle', () => {
   beforeEach(() => {
     fakeEventsRepository = new FakeEventsRepository();
     fakeLaunchesRepository = new FakeLaunchesRepository();
@@ -24,7 +24,7 @@ describe('Delete Article', () => {
     );
   });
 
-  it('should be able to create a new article', async () => {
+  it('should be able to delete a article', async () => {
     const articleOne = await fakeArticlesRepository.create({
       featured: true,
       imageUrl: 'ouabhfiyuasyiuiyuai',
@@ -35,17 +35,7 @@ describe('Delete Article', () => {
       url: 'ouqaoufiuosadhfi',
     });
 
-    const event = await fakeEventsRepository.create({
-      articleId: articleOne.id,
-      provider: 'nbzhiaiyfbiysd',
-    });
-
-    const launch = await fakeLaunchesRepository.create({
-      articleId: articleOne.id,
-      provider: 'nbzhiaiyfbiysd',
-    });
-
-    const articles = await deleteArticleService.execute({
+    await deleteArticleService.execute({
       articleId: articleOne.id,
     });
 
@@ -54,5 +44,23 @@ describe('Delete Article', () => {
     );
 
     expect(findArticleById).toBe(undefined);
+  });
+
+  it('should not be able to delete a what does not exists', async () => {
+    await fakeArticlesRepository.create({
+      featured: true,
+      imageUrl: 'ouabhfiyuasyiuiyuai',
+      newsSite: 'ioufhiuasfiyua',
+      publishedAt: new Date(),
+      summary: 'Uhuiduiyiyuagi',
+      title: 'uioiuasuihfiusa',
+      url: 'ouqaoufiuosadhfi',
+    });
+
+    await expect(
+      deleteArticleService.execute({
+        articleId: 'akasvyhdvhjasfhjasvjhfvjsa',
+      }),
+    ).rejects.toBeInstanceOf(AppError);
   });
 });

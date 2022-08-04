@@ -4,6 +4,7 @@ import IEventsRepository from '@modules/events/repositories/IEventsRepository';
 import ILaunchesRepository from '@modules/launches/repositories/ILaunchesRepository';
 import { injectable, inject } from 'tsyringe';
 import IArticlesRepository from '../repositories/IArticlesRepository';
+import AppError from '@shared/errors/AppError';
 
 interface Request {
   articleId: string;
@@ -23,11 +24,17 @@ class DeleteArticleService {
   ) {}
 
   public async execute({ articleId }: Request): Promise<void> {
-    await this.articlesRepository.delete(articleId);
+    const article = await this.articlesRepository.findArticleById(articleId);
 
-    await this.launchesRepository.delete(articleId);
+    if (!article) {
+      throw new AppError('Article does not exits');
+    }
 
-    await this.eventsRepository.delete(articleId);
+    await this.articlesRepository.delete(article.id);
+
+    await this.launchesRepository.delete(article.id);
+
+    await this.eventsRepository.delete(article.id);
   }
 }
 

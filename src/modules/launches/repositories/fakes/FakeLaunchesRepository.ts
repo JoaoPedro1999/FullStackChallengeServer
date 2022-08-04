@@ -1,5 +1,4 @@
-/* eslint-disable no-param-reassign */
-import { uuid } from 'uuidv4';
+import { v4 } from 'uuid';
 import ILaunchesRepository from '@modules/launches/repositories/ILaunchesRepository';
 import ICreateLaunchDTO from '@modules/launches/dtos/ICreateLaunchDTO';
 
@@ -14,7 +13,7 @@ class FakeArticlesRepository implements ILaunchesRepository {
   }: ICreateLaunchDTO): Promise<Launches> {
     const launch = new Launches();
 
-    launch.id = uuid();
+    launch.id = v4();
     launch.articleId = articleId;
     launch.provider = provider;
 

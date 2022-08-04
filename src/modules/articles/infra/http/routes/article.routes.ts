@@ -49,4 +49,35 @@ articleRouter.post(
   articleController.create,
 );
 
+articleRouter.put(
+  '/:articleId',
+  celebrate({
+    [Segments.BODY]: {
+      title: Joi.string().required(),
+      category: Joi.string().required(),
+      type: Joi.string().required(),
+      value: Joi.number().required(),
+      events: Joi.array().required(),
+      featured: Joi.string().required(),
+      imageUrl: Joi.string().required(),
+      summary: Joi.string().required(),
+      url: Joi.string().required(),
+    },
+    [Segments.PARAMS]: {
+      articleId: Joi.string().required(),
+    },
+  }),
+  articleController.update,
+);
+
+articleRouter.delete(
+  '/:articleId',
+  celebrate({
+    [Segments.PARAMS]: {
+      articleId: Joi.string().required(),
+    },
+  }),
+  articleController.delete,
+);
+
 export default articleRouter;
