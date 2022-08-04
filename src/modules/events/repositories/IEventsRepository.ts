@@ -1,8 +1,8 @@
-import Launches from '../infra/typeorm/entities/Events';
-import ICreateLaunchDTO from '../dtos/ICreateEventDTO';
+import Events from '../infra/typeorm/entities/Events';
+import ICreateEventDTO from '../dtos/ICreateEventDTO';
 
-import { PrismaPromise } from '@prisma/client';
-
-export default interface IArticlesRepository {
-  create(data: ICreateLaunchDTO): Promise<Launches>;
+export default interface IEventsRepository {
+  create(data: ICreateEventDTO): Promise<Events>;
+  save(data: Events): Promise<Events>;
+  delete(id: string): Promise<void>;
 }

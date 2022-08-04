@@ -25,6 +25,18 @@ class LaunchesRepository implements IArticlesRepository {
 
     return launch;
   }
+
+  public async save(launch: Launches): Promise<Launches> {
+    const launchUpdated = await this.ormRepository.save(launch);
+
+    return launchUpdated;
+  }
+
+  public async delete(id: string): Promise<void> {
+    await this.ormRepository.delete({
+      articleId: id,
+    });
+  }
 }
 
 export default LaunchesRepository;

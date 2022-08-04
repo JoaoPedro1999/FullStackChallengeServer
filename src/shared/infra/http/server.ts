@@ -5,6 +5,7 @@ import routes from './routes';
 import AppError from '@shared/errors/AppError';
 import '@shared/infra/database/typeormClient';
 import '@shared/container';
+// import '@shared/utils/SeedDatabase';
 
 const app = express();
 

@@ -5,14 +5,15 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   OneToOne,
+  OneToMany,
 } from 'typeorm';
 import Events from '@modules/events/infra/typeorm/entities/Events';
 import Launches from '@modules/launches/infra/typeorm/entities/Launches';
 
 @Entity('articles')
 class Articles {
-  @PrimaryGeneratedColumn('increment')
-  id: number;
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
 
   @Column('boolean')
   featured: boolean;
@@ -32,14 +33,14 @@ class Articles {
   @Column('boolean')
   summary: string;
 
-  @Column('datetime')
+  @Column('timestamptz')
   publishedAt: Date;
 
-  @OneToOne(() => Events)
-  events: Events;
+  @OneToMany(type => Events, event => event.article)
+  events: Events[];
 
-  @OneToOne(() => Launches)
-  launches: Launches;
+  @OneToMany(type => Launches, launch => launch.article)
+  launches: Launches[];
 
   @CreateDateColumn()
   created_at: Date;

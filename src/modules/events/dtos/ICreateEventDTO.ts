@@ -1,4 +1,4 @@
 export default interface ICreateEventDTO {
   provider: string;
-  articleId: number;
+  articleId: string;
 }

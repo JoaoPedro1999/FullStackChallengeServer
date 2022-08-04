@@ -1,9 +1,4 @@
-/*
- * This file is responsible for creating a new transaction,
- * also checking the balance for creating an outgoing transaction. */
-
 import { injectable, inject } from 'tsyringe';
-import AppError from '@shared/errors/AppError';
 
 import Articles from '../infra/typeorm/entities/Articles';
 
@@ -30,11 +25,11 @@ interface Request {
 @injectable()
 class CreateArticleService {
   constructor(
-    @inject('ArticleRepositoru')
-    private articleRepository: IArticlesRepository,
+    @inject('ArticlesRepository')
+    private articlesRepository: IArticlesRepository,
 
     @inject('EventsRepository')
-    private eventRepository: IEventsRepository,
+    private eventsRepository: IEventsRepository,
 
     @inject('LaunchesRepository')
     private launchesRepository: ILaunchesRepository,
@@ -50,8 +45,8 @@ class CreateArticleService {
     summary,
     title,
     url,
-  }: Request): Promise<Articles | null> {
-    const article = await this.articleRepository.create({
+  }: Request): Promise<Articles> {
+    const article = await this.articlesRepository.create({
       featured,
       imageUrl,
       newsSite,
@@ -62,7 +57,7 @@ class CreateArticleService {
     });
 
     events.forEach(async event => {
-      await this.eventRepository.create({
+      await this.eventsRepository.create({
         articleId: article.id,
         provider: event.provider,
       });

@@ -3,6 +3,7 @@ import IArticlesRepository from '@modules/articles/repositories/IArticlesReposit
 import ICreateArticleDTO from '@modules/articles/dtos/ICreateArticleDTO';
 
 import Article from '@modules/articles/infra/typeorm/entities/Articles';
+import { uuid } from 'uuidv4';
 
 class FakeArticlesRepository implements IArticlesRepository {
   private articles: Article[] = [];
@@ -18,7 +19,7 @@ class FakeArticlesRepository implements IArticlesRepository {
   }: ICreateArticleDTO): Promise<Article> {
     const article = new Article();
 
-    article.id = this.articles.length + 1;
+    article.id = uuid();
     article.featured = featured;
     article.imageUrl = imageUrl;
     article.publishedAt = publishedAt;
@@ -31,12 +32,12 @@ class FakeArticlesRepository implements IArticlesRepository {
     return article;
   }
 
-  public async findAllArticles(page = 0): Promise<Article[]> {
-    const skipElements = page * 10;
+  public async findAllArticles(page = '0'): Promise<Article[]> {
+    const skipElements = Number(page) * 10;
 
     if (skipElements > 0) {
       const articlesPagination = this.articles.slice(
-        (page - 1) * 10,
+        (Number(page) - 1) * 10,
         skipElements,
       );
 
@@ -56,7 +57,7 @@ class FakeArticlesRepository implements IArticlesRepository {
     return articles;
   }
 
-  public async findArticleById(id: number): Promise<Article | undefined> {
+  public async findArticleById(id: string): Promise<Article | undefined> {
     const article = this.articles.find(article => article.id === id);
 
     return article;
@@ -70,6 +71,16 @@ class FakeArticlesRepository implements IArticlesRepository {
     this.articles[findIndex] = article;
 
     return article;
+  }
+
+  public async delete(id: string): Promise<void> {
+    const findIndex = this.articles.findIndex(
+      findArticle => findArticle.id === id,
+    );
+
+    this.articles.splice(findIndex, 1);
+
+    return;
   }
 }
 

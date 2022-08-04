@@ -5,7 +5,7 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   JoinColumn,
-  OneToOne,
+  ManyToOne,
 } from 'typeorm';
 import Articles from '@modules/articles/infra/typeorm/entities/Articles';
 
@@ -18,9 +18,9 @@ class Events {
   provider: string;
 
   @Column('number')
-  articleId: number;
+  articleId: string;
 
-  @OneToOne(() => Articles)
+  @ManyToOne(() => Articles)
   @JoinColumn({ name: 'articleId' })
   article: Articles;
 

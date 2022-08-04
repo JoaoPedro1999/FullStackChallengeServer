@@ -5,7 +5,7 @@ import ICreateArticleDTO from '@modules/articles/dtos/ICreateArticleDTO';
 
 import Articles from '@modules/articles/infra/typeorm/entities/Articles';
 
-class ArticleRepository implements IArticlesRepository {
+class ArticlesRepository implements IArticlesRepository {
   private ormRepository: Repository<Articles>;
 
   constructor() {
@@ -31,16 +31,16 @@ class ArticleRepository implements IArticlesRepository {
       title: title,
     });
 
-    this.ormRepository.save(article);
+    await this.ormRepository.save(article);
 
     return article;
   }
 
-  public async findAllArticles(page = 0): Promise<Articles[]> {
+  public async findAllArticles(page = '1'): Promise<Articles[]> {
     const articles = await this.ormRepository.find({
-      skip: page,
-      take: 10,
-      relations: ['events', 'launches'],
+      skip: Number(page),
+      take: 500,
+      relations: ['launches', 'events'],
     });
 
     return articles;
@@ -53,12 +53,13 @@ class ArticleRepository implements IArticlesRepository {
       where: {
         title: Like(`%${keyword}%`),
       },
+      relations: ['events', 'launches'],
     });
 
     return articles;
   }
 
-  public async findArticleById(id: number): Promise<Articles | undefined> {
+  public async findArticleById(id: string): Promise<Articles | undefined> {
     const article = await this.ormRepository.findOne({
       where: {
         id,
@@ -78,6 +79,10 @@ class ArticleRepository implements IArticlesRepository {
 
     return articleUpdated;
   }
+
+  public async delete(id: string): Promise<void> {
+    await this.ormRepository.delete(id);
+  }
 }
 
-export default ArticleRepository;
+export default ArticlesRepository;

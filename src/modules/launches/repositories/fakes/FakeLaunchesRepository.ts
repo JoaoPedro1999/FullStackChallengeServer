@@ -22,6 +22,26 @@ class FakeArticlesRepository implements ILaunchesRepository {
 
     return launch;
   }
+
+  public async save(launch: Launches): Promise<Launches> {
+    const findIndex = this.launches.findIndex(
+      findLaunch => findLaunch.id === launch.id,
+    );
+
+    this.launches[findIndex] = launch;
+
+    return launch;
+  }
+
+  public async delete(id: string): Promise<void> {
+    const findIndex = this.launches.findIndex(
+      findLaunch => findLaunch.articleId === id,
+    );
+
+    this.launches.splice(findIndex, 1);
+
+    return;
+  }
 }
 
 export default FakeArticlesRepository;

@@ -1,25 +1,27 @@
 import 'reflect-metadata';
-
 import { injectable, inject } from 'tsyringe';
+
 import Articles from '../infra/typeorm/entities/Articles';
 import IArticlesRepository from '../repositories/IArticlesRepository';
 
 interface Request {
-  page?: string;
+  keyword: string;
 }
 
 @injectable()
-class ShowAllArticlesService {
+class ShowArticlesByKeywordService {
   constructor(
     @inject('ArticlesRepository')
     private articlesRepository: IArticlesRepository,
   ) {}
 
-  public async execute({ page }: Request): Promise<Articles[]> {
-    const articles = await this.articlesRepository.findAllArticles(page);
+  public async execute({ keyword }: Request): Promise<Articles[] | undefined> {
+    const articles = await this.articlesRepository.findArticlesByKeyword(
+      keyword,
+    );
 
     return articles;
   }
 }
 
-export default ShowAllArticlesService;
+export default ShowArticlesByKeywordService;
