@@ -12,6 +12,7 @@ articleRouter.get(
   celebrate({
     [Segments.QUERY]: {
       page: Joi.string(),
+      orderBy: Joi.string(),
       keyword: Joi.string(),
     },
   }),

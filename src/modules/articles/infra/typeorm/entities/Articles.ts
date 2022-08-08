@@ -36,6 +36,8 @@ class Articles {
   @Column('timestamptz')
   publishedAt: Date;
 
+  publishedAtFormatted: string;
+
   @OneToMany(type => Events, event => event.article)
   events: Events[];
 

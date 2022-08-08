@@ -7,10 +7,12 @@ import ShowArticlesByKeywordService from '@modules/articles/services/ShowArticle
 import ShowArticleByIdService from '@modules/articles/services/ShowArticleByIdService';
 import DeleteArticleService from '@modules/articles/services/DeleteArticleService';
 import UpdateArticleService from '@modules/articles/services/UpdateArticleService';
+import { FindOptionsOrderValue } from 'typeorm';
 
 interface RequestParams {
   keyword?: string;
   page?: string;
+  orderBy?: FindOptionsOrderValue;
 }
 
 export default class TransactionController {
@@ -20,7 +22,7 @@ export default class TransactionController {
   ): Promise<Response> {
     let articles;
 
-    const { keyword, page } = request.query;
+    const { keyword, page, orderBy } = request.query;
 
     const showAllArticlesService = container.resolve(ShowAllArticlesService);
 
@@ -32,8 +34,8 @@ export default class TransactionController {
       articles = await showArticlesByKeywordService.execute({ keyword });
     }
 
-    if (page) {
-      articles = await showAllArticlesService.execute({ page });
+    if (page && orderBy) {
+      articles = await showAllArticlesService.execute({ page, orderBy });
     }
 
     return response.json(articles);

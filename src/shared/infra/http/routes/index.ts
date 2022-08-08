@@ -8,6 +8,6 @@ routes.get('/', (Request, Response) => {
     message: 'Fullstack Challenge 2021 🏅 - Space Flight News',
   });
 });
-routes.use('/article', articleRouter);
+routes.use('/articles', articleRouter);
 
 export default routes;

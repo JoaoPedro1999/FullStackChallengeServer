@@ -26,6 +26,7 @@ class FakeArticlesRepository implements IArticlesRepository {
     article.summary = summary;
     article.title = title;
     article.url = url;
+    article.newsSite = newsSite;
 
     this.articles.push(article);
 

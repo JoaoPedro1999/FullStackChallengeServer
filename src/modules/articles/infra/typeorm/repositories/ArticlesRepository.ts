@@ -1,4 +1,4 @@
-import { Repository, Like } from 'typeorm';
+import { Repository, Like, FindOptionsOrderValue } from 'typeorm';
 import { AppDataSource } from '@shared/infra/database/typeormClient';
 import IArticlesRepository from '@modules/articles/repositories/IArticlesRepository';
 import ICreateArticleDTO from '@modules/articles/dtos/ICreateArticleDTO';
@@ -36,11 +36,20 @@ class ArticlesRepository implements IArticlesRepository {
     return article;
   }
 
-  public async findAllArticles(page = '1'): Promise<Articles[]> {
+  public async findAllArticles(
+    page = '1',
+    orderBy: FindOptionsOrderValue,
+  ): Promise<Articles[]> {
+    const pageFormatted = Number(page);
+    console.log('pageFormatted', pageFormatted);
+
     const articles = await this.ormRepository.find({
-      skip: Number(page),
-      take: 500,
+      skip: pageFormatted === 0 ? 0 : pageFormatted * 10 + 1,
+      take: 10,
       relations: ['launches', 'events'],
+      order: {
+        publishedAt: orderBy,
+      },
     });
 
     return articles;
