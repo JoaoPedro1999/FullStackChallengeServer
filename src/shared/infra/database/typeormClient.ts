@@ -7,8 +7,8 @@ export const AppDataSource = new DataSource({
   username: 'mawmvgylkyugsf',
   password: '0c05d4803d30f1d8b472f6381d7582188ccc7e09fb3f3c45080a915ec977d7fa',
   database: 'd8lhoo6k1iep7k',
-  entities: ['./src/modules/**/infra/typeorm/entities/*.js'],
-  migrations: ['./src/shared/infra/typeorm/migrations/*.js'],
+  entities: ['./dist/modules/**/infra/typeorm/entities/*.js'],
+  migrations: ['./dist/shared/infra/typeorm/migrations/*.js'],
   ssl: {
     rejectUnauthorized: false,
   },
