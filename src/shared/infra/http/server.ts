@@ -1,12 +1,13 @@
 import 'reflect-metadata';
 import 'dotenv';
+import 'express-async-errors';
 import express, { Request, Response, NextFunction } from 'express';
 import routes from './routes';
 import AppError from '@shared/errors/AppError';
 import '@shared/infra/database/typeormClient';
 import '@shared/container';
 import cors from 'cors';
-// import '@shared/utils/SeedDatabase';
+import '@shared/utils/SeedDatabase';
 
 const app = express();
 app.use(cors());
@@ -30,5 +31,5 @@ app.use((err: Error, request: Request, response: Response, _: NextFunction) => {
 });
 
 app.listen(process.env.PORT || 3332, () => {
-  console.log('🚀 server started on port 3333');
+  console.log('🚀 server started on port 3332');
 });

@@ -41,7 +41,6 @@ class ArticlesRepository implements IArticlesRepository {
     orderBy: FindOptionsOrderValue,
   ): Promise<Articles[]> {
     const pageFormatted = Number(page);
-    console.log('pageFormatted', pageFormatted);
 
     const articles = await this.ormRepository.find({
       skip: pageFormatted === 0 ? 0 : pageFormatted * 10 + 1,

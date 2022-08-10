@@ -34,14 +34,11 @@ articleRouter.post(
   celebrate({
     [Segments.BODY]: {
       title: Joi.string().required(),
-      category: Joi.string().required(),
-      type: Joi.string().required(),
-      value: Joi.number().required(),
       events: Joi.array().required(),
-      featured: Joi.string().required(),
+      featured: Joi.boolean().required(),
       imageUrl: Joi.string().required(),
       launches: Joi.array().required(),
-      newsSite: Joi.array().required(),
+      newsSite: Joi.string().required(),
       publishedAt: Joi.date().required(),
       summary: Joi.string().required(),
       url: Joi.string().required(),
@@ -55,12 +52,12 @@ articleRouter.put(
   celebrate({
     [Segments.BODY]: {
       title: Joi.string().required(),
-      category: Joi.string().required(),
-      type: Joi.string().required(),
-      value: Joi.number().required(),
       events: Joi.array().required(),
-      featured: Joi.string().required(),
+      featured: Joi.boolean().required(),
       imageUrl: Joi.string().required(),
+      launches: Joi.array().required(),
+      newsSite: Joi.string().required(),
+      publishedAt: Joi.date().required(),
       summary: Joi.string().required(),
       url: Joi.string().required(),
     },

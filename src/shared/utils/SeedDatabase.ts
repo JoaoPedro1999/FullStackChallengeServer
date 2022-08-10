@@ -1,8 +1,9 @@
 import 'reflect-metadata';
-
-import CreateArticleService from '../../modules/articles/services/CreateArticleService';
 import axios from 'axios';
-import { container } from 'tsyringe';
+import { AppDataSource } from '@shared/infra/database/typeormClient';
+import Articles from '../../modules/articles/infra/typeorm/entities/Articles';
+import Events from '../../modules/events/infra/typeorm/entities/Events';
+import Launches from '../../modules/launches/infra/typeorm/entities/Launches';
 
 interface Response {
   featured: boolean;
@@ -21,25 +22,49 @@ interface Response {
 }
 
 async function SeedDatabase() {
-  const response = await axios.get<Response[]>(
-    'https://api.spaceflightnewsapi.net/v3/articles?_limit=500',
-  );
+  const limit = 500;
+  const articles = false;
+  const articlesRepository = AppDataSource.getRepository(Articles);
+  const eventsRepository = AppDataSource.getRepository(Events);
+  const launchesRepository = AppDataSource.getRepository(Launches);
 
-  const createArticleService = container.resolve(CreateArticleService);
+  if (articles) {
+    const response = await axios.get<Response[]>(
+      `https://api.spaceflightnewsapi.net/v3/articles?_limit=${limit}`,
+    );
 
-  response.data.forEach(element => {
-    createArticleService.execute({
-      events: element.events,
-      featured: element.featured,
-      imageUrl: element.imageUrl,
-      launches: element.launches,
-      newsSite: element.newsSite,
-      publishedAt: element.publishedAt,
-      summary: element.summary,
-      title: element.title,
-      url: element.url,
+    response.data.forEach(async element => {
+      const article = articlesRepository.create({
+        featured: element.featured,
+        imageUrl: element.imageUrl,
+        newsSite: element.newsSite,
+        publishedAt: element.publishedAt,
+        summary: element.summary,
+        title: element.title,
+        url: element.url,
+      });
+
+      await articlesRepository.save(article);
+
+      element.events.forEach(async eachEvent => {
+        const newEvent = eventsRepository.create({
+          articleId: article.id,
+          provider: eachEvent.provider,
+        });
+
+        await eventsRepository.save(newEvent);
+      });
+
+      element.launches.forEach(async launch => {
+        const newLaunch = launchesRepository.create({
+          articleId: article.id,
+          provider: launch.provider,
+        });
+
+        await launchesRepository.save(newLaunch);
+      });
     });
-  });
+  }
 
   console.log('Deu bom');
 }

@@ -1,0 +1,276 @@
+_type: export
+__export_format: 4
+__export_date: 2022-08-10T04:35:04.114Z
+__export_source: insomnia.desktop.app:v2022.5.0
+resources:
+  - _id: req_f4c7e480c987457bb75a7ff2ca23b3c4
+    parentId: fld_337bcba4fe2b4cbabc598e874ba9d06c
+    modified: 1660102255818
+    created: 1660076520432
+    url: "{{ _.baseURL }}/articles"
+    name: Create Article
+    description: ""
+    method: POST
+    body:
+      mimeType: application/json
+      text: >-
+        {
+        	"title": "Teste",
+        	"featured": true,
+        	"imageUrl": "https://www.teslarati.com/wp-content/uploads/2022/08/Antares-330-render-Firefly-Northrop-Grumman-1-crop-c.jpg",
+        	"launches": [
+        		{
+        			"provider": "Teste"
+        		}
+        	],
+        	"events": [
+        		{
+        			"provider": "Teste"
+        		}
+        	],
+        	"summary": "Teyuwdyuiwuyv",
+        	"newsSite": "Nasa",
+        	"url": "https://www.teslarati.com/northrop-grumman-firefly-next-gen-antares-rocket/",
+        	"publishedAt": "2022-08-09T20:33:00.924Z"
+        }
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+        id: pair_67d7f3cda62c4823b720bc51647aa846
+    authentication: {}
+    metaSortKey: -1660076520432
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: fld_337bcba4fe2b4cbabc598e874ba9d06c
+    parentId: wrk_3f8a67cac62942c0981184b823c67e3f
+    modified: 1659618208998
+    created: 1659618208998
+    name: Article
+    description: ""
+    environment: {}
+    environmentPropertyOrder: null
+    metaSortKey: -1659618208998
+    _type: request_group
+  - _id: wrk_3f8a67cac62942c0981184b823c67e3f
+    parentId: null
+    modified: 1659618199648
+    created: 1659618199648
+    name: "Full Stack Challenge "
+    description: ""
+    scope: collection
+    _type: workspace
+  - _id: req_979b1f98c272488fba81246130459efa
+    parentId: fld_337bcba4fe2b4cbabc598e874ba9d06c
+    modified: 1660077362245
+    created: 1660077282552
+    url: "{{ _.baseURL }}/articles/0b842d5d-9b8e-4a01-a41a-09528d08cd43"
+    name: Update Article
+    description: ""
+    method: PUT
+    body:
+      mimeType: application/json
+      text: >-
+        {
+        	"title": "Teste do teste",
+        	"featured": true,
+        	"imageUrl": "https://www.teslarati.com/wp-content/uploads/2022/08/Antares-330-render-Firefly-Northrop-Grumman-1-crop-c.jpg",
+        	"launches": [
+        		{
+        			"provider": "Teste"
+        		}
+        	],
+        	"events": [
+        		{
+        			"provider": "Teste"
+        		}
+        	],
+        	"summary": "Teyuwdyuiwuyv",
+        	"newsSite": "Nasa",
+        	"url": "https://www.teslarati.com/northrop-grumman-firefly-next-gen-antares-rocket/",
+        	"publishedAt": "2022-08-09T20:33:00.924Z"
+        }
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+        id: pair_67d7f3cda62c4823b720bc51647aa846
+    authentication: {}
+    metaSortKey: -1659847834725.5
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_aebb484518294189807258157db889a0
+    parentId: fld_337bcba4fe2b4cbabc598e874ba9d06c
+    modified: 1660077357320
+    created: 1660077342629
+    url: "{{ _.baseURL }}/articles/0b842d5d-9b8e-4a01-a41a-09528d08cd43"
+    name: Delete Article
+    description: ""
+    method: DELETE
+    body:
+      mimeType: application/json
+      text: ""
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+        id: pair_67d7f3cda62c4823b720bc51647aa846
+    authentication: {}
+    metaSortKey: -1659733491872.25
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_ecaf2989f81142ce9295e32d98173615
+    parentId: fld_337bcba4fe2b4cbabc598e874ba9d06c
+    modified: 1660076316653
+    created: 1659618210071
+    url: "{{ _.baseURL }}/articles"
+    name: List Article
+    description: ""
+    method: GET
+    body: {}
+    parameters:
+      - id: pair_9badcdbdb8d740d29ddd5b313a870d87
+        name: page
+        value: "1"
+        description: ""
+        disabled: false
+      - id: pair_782251f30a9d4a08903214ab0d9fcbc3
+        name: orderBy
+        value: DESC
+        description: ""
+    headers: []
+    authentication: {}
+    metaSortKey: -1659618210071
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_0abb1f0dfad2439db7ab6657e32ebf63
+    parentId: fld_337bcba4fe2b4cbabc598e874ba9d06c
+    modified: 1660076514026
+    created: 1660076339143
+    url: "{{ _.baseURL }}/articles"
+    name: Filter Article
+    description: ""
+    method: GET
+    body: {}
+    parameters:
+      - id: pair_244441d08ae34b5db941036c9ce749c8
+        name: keyword
+        value: North
+        description: ""
+    headers: []
+    authentication: {}
+    metaSortKey: -1655243994130.5
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_bd25fd9a24554b628ae2e3aa5174b3a8
+    parentId: fld_337bcba4fe2b4cbabc598e874ba9d06c
+    modified: 1660076509467
+    created: 1659630889947
+    url: "{{ _.baseURL }}/article/455e7ef6-3087-4e51-98de-6a75378ecff3"
+    name: Article By Id
+    description: ""
+    method: GET
+    body: {}
+    parameters:
+      - id: pair_f82f1efbcaac41318dc8168e2c66b8ef
+        name: ""
+        value: ""
+        description: ""
+    headers: []
+    authentication: {}
+    metaSortKey: -1650869778190
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: env_f1eee54e69e5b9bd3fb590121faca668afb23b88
+    parentId: wrk_3f8a67cac62942c0981184b823c67e3f
+    modified: 1660106045689
+    created: 1659618199665
+    name: Base Environment
+    data:
+      baseURL: http://localhost:3332
+    dataPropertyOrder:
+      "&":
+        - baseURL
+    color: null
+    isPrivate: false
+    metaSortKey: 1659618199665
+    _type: environment
+  - _id: jar_f1eee54e69e5b9bd3fb590121faca668afb23b88
+    parentId: wrk_3f8a67cac62942c0981184b823c67e3f
+    modified: 1659618199670
+    created: 1659618199670
+    name: Default Jar
+    cookies: []
+    _type: cookie_jar
+  - _id: spc_ba7c324d44414783bdb3340a67df58b1
+    parentId: wrk_3f8a67cac62942c0981184b823c67e3f
+    modified: 1659618199650
+    created: 1659618199650
+    fileName: "Full Stack Challenge "
+    contents: ""
+    contentType: yaml
+    _type: api_spec
+  - _id: env_62322d232ade406698c745b57199abf5
+    parentId: env_f1eee54e69e5b9bd3fb590121faca668afb23b88
+    modified: 1660106047137
+    created: 1660076366037
+    name: Production
+    data:
+      baseURL: https://fullstackchallengeserver.herokuapp.com
+    dataPropertyOrder:
+      "&":
+        - baseURL
+    color: "#ff0000"
+    isPrivate: false
+    metaSortKey: 1660076366037
+    _type: environment
+  - _id: env_62228898884647919c5a140eda0b9db4
+    parentId: env_f1eee54e69e5b9bd3fb590121faca668afb23b88
+    modified: 1660106036765
+    created: 1660076396687
+    name: Local
+    data:
+      baseURL: http://localhost:3332
+    dataPropertyOrder:
+      "&":
+        - baseURL
+    color: "#0008ff"
+    isPrivate: false
+    metaSortKey: 1660076396687
+    _type: environment
